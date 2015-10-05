@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var laterIcon: UIImageView!
     @IBOutlet weak var rescheduleImage: UIImageView!
     
+    @IBOutlet weak var rescheduleView: UIView!
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     
     var messageOriginalPosition: CGPoint!
@@ -35,6 +36,32 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func onRescheduleButton(sender: AnyObject) {
+        
+        //Hide reschedule options
+        UIView.animateWithDuration(0.25, animations: { () -> Void in
+            
+            self.rescheduleImage.alpha = 0
+            
+            }, completion: { (completed) -> Void in
+                
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                    
+                    self.rescheduleView.hidden = true
+                    
+                    self.messageView.center.y = -self.messageView.frame.height/2
+                    self.feedImage.center.y = self.feedImage.center.y - self.messageView.frame.height
+                    
+                    }, completion: { (completed) -> Void in
+                        
+                      self.messageView.hidden = true
+                    
+                })
+                
+        })
+        
     }
 
     @IBAction func onMessagePan(sender: UIPanGestureRecognizer) {
@@ -85,6 +112,7 @@ class ViewController: UIViewController {
                     
                     self.messageImage.center.x = -self.messageImage.frame.width/2
                     self.laterIcon.alpha = 0
+                    self.rescheduleView.hidden = false
                     
                     }, completion: { (completed) -> Void in
             
