@@ -61,6 +61,41 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent!) {
+        
+        if motion == .MotionShake {
+
+            archiveIcon.center = archiveIconOriginalPosition
+            deleteIcon.center = deleteIconOriginalPosition
+            laterIcon.center = laterIconOriginalPosition
+            listIcon.center = listIconOriginalPosition
+
+            archiveIcon.alpha = 0.25
+            deleteIcon.alpha = 0
+            laterIcon.alpha = 0.25
+            listIcon.alpha = 0
+            
+            messageView.backgroundColor = bgGray
+
+            self.messageView.hidden = false
+            self.messageImage.center.x = self.messageView.frame.width/2
+
+            UIView.animateWithDuration(0.25, animations: { () -> Void in
+                
+                self.messageView.center.y = self.messageView.frame.height/2
+                self.feedImage.center.y = self.messageView.frame.height + self.feedImage.frame.height/2
+                
+            })
+        
+        }
+        
+    }
+    
     
     @IBAction func onRescheduleButton(sender: AnyObject) {
         
