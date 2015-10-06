@@ -11,25 +11,39 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBOutlet weak var feedImage: UIImageView!
     @IBOutlet weak var messageImage: UIImageView!
-    @IBOutlet weak var messageView: UIView!
     @IBOutlet weak var laterIcon: UIImageView!
+    @IBOutlet weak var listIcon: UIImageView!
+    @IBOutlet weak var archiveIcon: UIImageView!
+    @IBOutlet weak var deleteIcon: UIImageView!
     @IBOutlet weak var rescheduleImage: UIImageView!
+    @IBOutlet weak var listImage: UIImageView!
     
+    @IBOutlet weak var messageView: UIView!
     @IBOutlet weak var rescheduleView: UIView!
+
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     
     var messageOriginalPosition: CGPoint!
     var laterIconOriginalPosition: CGPoint!
+    var listIconOriginalPosition: CGPoint!
+    var archiveIconOriginalPosition: CGPoint!
+    var deleteIconOriginalPosition: CGPoint!
     
-    let bgYellow = UIColor(red: 248, green: 204, blue: 40, alpha: 1)
+    let bgYellow = UIColor(red: 248/255.0, green: 204/255.0, blue: 40/255.0, alpha: 1)
+    let bgBrown  = UIColor(red: 206/255.0, green: 150/255.0, blue: 98/255.0, alpha: 1)
+    let bgGray   = UIColor(white: 219/255, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        scrollView.contentSize = CGSize(width: feedImage.frame.width, height: feedImage.frame.height + messageImage.frame.height)
+        scrollView.contentSize = CGSize(
+            width: feedImage.frame.width,
+            height: feedImage.frame.height + messageImage.frame.height
+        )
 
     }
 
@@ -44,6 +58,7 @@ class ViewController: UIViewController {
         UIView.animateWithDuration(0.25, animations: { () -> Void in
             
             self.rescheduleImage.alpha = 0
+            self.listImage.alpha = 0
             
             }, completion: { (completed) -> Void in
                 
@@ -77,23 +92,41 @@ class ViewController: UIViewController {
             
             messageOriginalPosition = messageImage.center
             laterIconOriginalPosition = laterIcon.center
+            listIconOriginalPosition = listIcon.center
             
         } else if panGestureRecognizer.state == UIGestureRecognizerState.Changed {
             
-            print(translation.x)
+            //print(translation.x)
             
             messageImage.center.x = messageOriginalPosition.x + translation.x
             
-            if translation.x < -60 {
-            
-                laterIcon.center.x = laterIconOriginalPosition.x + translation.x + 60
-                laterIcon.alpha = 1.0
+            if translation.x < -260 {
+
+                listIcon.center.x = listIconOriginalPosition.x + translation.x + 260
                 
-                messageView.backgroundColor = UIColor.yellowColor()
-                //messageView.backgroundColor = UIColor(red: 248, green: 204, blue: 40, alpha: 1)
-                //messageView.backgroundColor = bgYellow
+                laterIcon.alpha = 0
+                listIcon.alpha = 1.0
+                
+                messageView.backgroundColor = bgBrown
+
+            } else if translation.x < -60 {
+                
+                laterIcon.center.x = laterIconOriginalPosition.x + translation.x + 60
+                
+                laterIcon.alpha = 1.0
+                listIcon.alpha = 0
+                
+                messageView.backgroundColor = bgYellow
+                
+            } else {
+                
+                laterIcon.alpha = 0.25
+                listIcon.alpha = 0
+
+                messageView.backgroundColor = bgGray
             
             }
+
             
         } else if panGestureRecognizer.state == UIGestureRecognizerState.Ended {
             
@@ -103,6 +136,25 @@ class ViewController: UIViewController {
                     
                     self.messageImage.center.x = self.messageImage.frame.width/2
 
+                })
+            
+            } else if translation.x < -260 {
+                
+                //Show reschedule options
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                    
+                    self.messageImage.center.x = -self.messageImage.frame.width/2
+                    self.listIcon.alpha = 0
+                    self.rescheduleView.hidden = false
+                    
+                    }, completion: { (completed) -> Void in
+                        
+                        UIView.animateWithDuration(0.25, animations: { () -> Void in
+                            
+                            self.listImage.alpha = 1
+                            
+                        })
+                        
                 })
             
             } else if translation.x < -60 {
@@ -124,9 +176,9 @@ class ViewController: UIViewController {
                         
                 })
                 
-            }
+            } //end if
             
-        }
+        } //end if states
         
     }
 

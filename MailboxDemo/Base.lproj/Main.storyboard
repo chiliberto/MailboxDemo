@@ -25,18 +25,18 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="center" image="later_icon" id="rJm-MU-437">
-                                                <rect key="frame" x="269" y="32" width="25" height="25"/>
+                                                <rect key="frame" x="277" y="32" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
-                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="center" image="list_icon" id="LOR-Ix-Bsh">
-                                                <rect key="frame" x="210" y="32" width="25" height="25"/>
+                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" image="list_icon" id="LOR-Ix-Bsh">
+                                                <rect key="frame" x="74" y="32" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
-                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="center" image="archive_icon" id="hRd-bi-JFp">
+                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" image="archive_icon" id="hRd-bi-JFp">
                                                 <rect key="frame" x="22" y="32" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
-                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="center" image="delete_icon" id="mtP-ju-42r">
+                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" image="delete_icon" id="mtP-ju-42r">
                                                 <rect key="frame" x="31" y="32" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
@@ -84,6 +84,10 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <gestureRecognizers/>
                                     </imageView>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" image="list" id="lHB-56-rxc">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9dn-hq-np3">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -97,8 +101,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="archiveIcon" destination="hRd-bi-JFp" id="11h-SL-3Ie"/>
+                        <outlet property="deleteIcon" destination="mtP-ju-42r" id="6Wa-FB-Lly"/>
                         <outlet property="feedImage" destination="KpC-Qb-EzW" id="XkY-qU-zEh"/>
                         <outlet property="laterIcon" destination="rJm-MU-437" id="tpW-J0-OjR"/>
+                        <outlet property="listIcon" destination="LOR-Ix-Bsh" id="0sF-ei-yJf"/>
+                        <outlet property="listImage" destination="lHB-56-rxc" id="x36-1e-Yu9"/>
                         <outlet property="messageImage" destination="o5v-8q-Bd6" id="jAP-Jc-SBT"/>
                         <outlet property="messageView" destination="09X-PR-qbL" id="9qW-E3-qQ2"/>
                         <outlet property="panGestureRecognizer" destination="ueR-hO-KRU" id="Vsu-pr-7U5"/>
@@ -125,6 +133,7 @@
         <image name="help_label" width="320" height="37"/>
         <image name="later_icon" width="25" height="25"/>
         <image name="later_nav_icon" width="25" height="20"/>
+        <image name="list" width="320" height="568"/>
         <image name="list_icon" width="25" height="25"/>
         <image name="mail_nav_icon" width="25" height="20"/>
         <image name="message" width="320" height="86"/>
