@@ -137,20 +137,14 @@ class ViewController: UIViewController {
                 messageView.backgroundColor = bgGray
            
             }
-
             
         } else if panGestureRecognizer.state == UIGestureRecognizerState.Ended {
-            
-            if abs(translation.x) < 60 {
-                
-                UIView.animateWithDuration(0.25, animations: { () -> Void in
-                    
-                    self.messageImage.center.x = self.messageImage.frame.width/2
 
-                })
-            
-            } else if translation.x < -260 {
+            switch translation.x
+            {
                 
+            case -screenWidth ... -260:
+
                 //Show reschedule options
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     
@@ -167,9 +161,9 @@ class ViewController: UIViewController {
                         })
                         
                 })
-            
-            } else if translation.x < -60 {
-            
+
+            case -260 ... -60:
+
                 //Show reschedule options
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     
@@ -178,16 +172,24 @@ class ViewController: UIViewController {
                     self.rescheduleView.hidden = false
                     
                     }, completion: { (completed) -> Void in
-            
-                        UIView.animateWithDuration(0.25, animations: { () -> Void in
-
-                            self.rescheduleImage.alpha = 1
                         
+                        UIView.animateWithDuration(0.25, animations: { () -> Void in
+                            
+                            self.rescheduleImage.alpha = 1
+                            
                         })
                         
                 })
                 
-            } //end if
+            default:
+
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                    
+                    self.messageImage.center.x = self.messageImage.frame.width/2
+                    
+                })
+                
+            }//end switch
             
         } //end if states
         
