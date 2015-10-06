@@ -35,7 +35,11 @@ class ViewController: UIViewController {
     let bgYellow = UIColor(red: 248/255.0, green: 204/255.0, blue: 40/255.0, alpha: 1)
     let bgBrown  = UIColor(red: 206/255.0, green: 150/255.0, blue: 98/255.0, alpha: 1)
     let bgGray   = UIColor(white: 219/255, alpha: 1)
-    
+
+    var screenSize: CGRect!
+    var screenWidth: CGFloat!
+    var screenHeight: CGFloat!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -44,6 +48,10 @@ class ViewController: UIViewController {
             width: feedImage.frame.width,
             height: feedImage.frame.height + messageImage.frame.height
         )
+        
+        screenSize = UIScreen.mainScreen().bounds
+        screenWidth = screenSize.width
+        screenHeight = screenSize.height
 
     }
 
@@ -100,7 +108,10 @@ class ViewController: UIViewController {
             
             messageImage.center.x = messageOriginalPosition.x + translation.x
             
-            if translation.x < -260 {
+            switch translation.x
+            {
+                
+            case -screenWidth ... -260:
 
                 listIcon.center.x = listIconOriginalPosition.x + translation.x + 260
                 
@@ -109,22 +120,22 @@ class ViewController: UIViewController {
                 
                 messageView.backgroundColor = bgBrown
 
-            } else if translation.x < -60 {
-                
+            case -260 ... -60:
+                    
                 laterIcon.center.x = laterIconOriginalPosition.x + translation.x + 60
-                
+                    
                 laterIcon.alpha = 1.0
                 listIcon.alpha = 0
                 
                 messageView.backgroundColor = bgYellow
                 
-            } else {
-                
+            default:
+
                 laterIcon.alpha = 0.25
                 listIcon.alpha = 0
-
+                
                 messageView.backgroundColor = bgGray
-            
+           
             }
 
             
