@@ -32,9 +32,11 @@ class ViewController: UIViewController {
     var archiveIconOriginalPosition: CGPoint!
     var deleteIconOriginalPosition: CGPoint!
     
-    let bgYellow = UIColor(red: 248/255.0, green: 204/255.0, blue: 40/255.0, alpha: 1)
     let bgBrown  = UIColor(red: 206/255.0, green: 150/255.0, blue: 98/255.0, alpha: 1)
     let bgGray   = UIColor(white: 219/255, alpha: 1)
+    let bgGreen  = UIColor(red: 98/255.0, green: 213/255.0, blue: 80/255.0, alpha: 1)
+    let bgRed    = UIColor(red: 228/255.0, green: 61/255.0, blue: 39/255.0, alpha: 1)
+    let bgYellow = UIColor(red: 248/255.0, green: 204/255.0, blue: 40/255.0, alpha: 1)
 
     var screenSize: CGRect!
     var screenWidth: CGFloat!
@@ -99,6 +101,8 @@ class ViewController: UIViewController {
         if panGestureRecognizer.state == UIGestureRecognizerState.Began {
             
             messageOriginalPosition = messageImage.center
+            archiveIconOriginalPosition = archiveIcon.center
+            deleteIconOriginalPosition = deleteIcon.center
             laterIconOriginalPosition = laterIcon.center
             listIconOriginalPosition = listIcon.center
             
@@ -115,6 +119,8 @@ class ViewController: UIViewController {
 
                 listIcon.center.x = listIconOriginalPosition.x + translation.x + 260
                 
+                archiveIcon.alpha = 0
+                deleteIcon.alpha = 0
                 laterIcon.alpha = 0
                 listIcon.alpha = 1.0
                 
@@ -124,13 +130,39 @@ class ViewController: UIViewController {
                     
                 laterIcon.center.x = laterIconOriginalPosition.x + translation.x + 60
                     
+                archiveIcon.alpha = 0
+                deleteIcon.alpha = 0
                 laterIcon.alpha = 1.0
                 listIcon.alpha = 0
                 
                 messageView.backgroundColor = bgYellow
                 
+            case 60 ... 260:
+                
+                archiveIcon.center.x = archiveIconOriginalPosition.x + translation.x - 60
+                
+                archiveIcon.alpha = 1.0
+                deleteIcon.alpha = 0
+                laterIcon.alpha = 0
+                listIcon.alpha = 0
+                
+                messageView.backgroundColor = bgGreen
+
+            case 260 ... screenWidth:
+                
+                deleteIcon.center.x = deleteIconOriginalPosition.x + translation.x - 260
+                
+                archiveIcon.alpha = 0
+                deleteIcon.alpha = 1.0
+                laterIcon.alpha = 0
+                listIcon.alpha = 0
+                
+                messageView.backgroundColor = bgRed
+                
             default:
 
+                archiveIcon.alpha = 0.25
+                deleteIcon.alpha = 0
                 laterIcon.alpha = 0.25
                 listIcon.alpha = 0
                 
@@ -180,14 +212,38 @@ class ViewController: UIViewController {
                         })
                         
                 })
+
+            case 60 ... screenWidth:
                 
+                //Archive the message
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                    
+                    self.messageImage.center.x = self.screenWidth + self.messageImage.frame.width/2
+                    self.archiveIcon.alpha = 0
+                    
+                    }, completion: { (completed) -> Void in
+                        
+                        UIView.animateWithDuration(0.25, animations: { () -> Void in
+                            
+                            self.messageView.center.y = -self.messageView.frame.height/2
+                            self.feedImage.center.y = self.feedImage.center.y - self.messageView.frame.height
+                            
+                        })
+                        
+                })
+
             default:
 
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     
                     self.messageImage.center.x = self.messageImage.frame.width/2
-                    
+
                 })
+
+                archiveIcon.center = archiveIconOriginalPosition
+                deleteIcon.center = deleteIconOriginalPosition
+                laterIcon.center = laterIconOriginalPosition
+                listIcon.center = listIconOriginalPosition
                 
             }//end switch
             

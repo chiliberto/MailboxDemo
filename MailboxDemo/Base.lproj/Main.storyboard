@@ -37,7 +37,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" image="delete_icon" id="mtP-ju-42r">
-                                                <rect key="frame" x="31" y="32" width="25" height="25"/>
+                                                <rect key="frame" x="216" y="32" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" image="message" id="o5v-8q-Bd6">
